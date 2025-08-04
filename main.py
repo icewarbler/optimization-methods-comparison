@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--init", type=float, nargs="+", default=[-1.2, 1.0])
+    parser.add_argument("--plot", type=bool, default=False)
 
     args = parser.parse_args()
 
@@ -24,9 +25,10 @@ def main():
     if args.method == "sgd":
         result = sgd.run(f, grad_f, x0, lr=args.lr, max_iter=args.max_iter)
     elif args.method == "cg":
-        result = cg.run(f, grad_f, x0, max_iter=args.max_iter)
+        result = cg.run(f, grad_f, x0, plot=args.plot, max_iter=args.max_iter)
     elif args.method == "lbfgs":
         result = lbfgs.run(f, grad_f, x0, max_iter=args.max_iter)
+        
 
     print(f"Result: {result}")
 
