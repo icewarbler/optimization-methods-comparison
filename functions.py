@@ -2,42 +2,53 @@ import numpy as np
 import numpy.linalg as la
 import scipy.optimize as sopt
 
-def quadratic(x):
+def quadratic(xy):
     np.random.seed(1)
     n = 2
     Q, _ = la.qr(np.random.randn(n, n))
     A = Q @ (np.diag(np.random.rand(n)) @ Q.T)
     b = np.random.randn(n)
-    return 0.5*(A[0,0]*x[0]*x[0] + 2*A[1,0]*x[0]*x[1] +  A[1,1]*x[1]*x[1]) - x[0]*b[0] - x[1]*b[1]
+    x, y = xy
+    return 0.5*(A[0,0]*x*x + 2*A[1,0]*x*y +  A[1,1]*y*y) - x*b[0] - y*b[1]
 
-def grad_quadratic(x):
+def grad_quadratic(xy):
     np.random.seed(1)
     n = 2
     Q, _ = la.qr(np.random.randn(n, n))
     A = Q @ (np.diag(np.random.rand(n)) @ Q.T)
     b = np.random.randn(n)
+    x, y = xy
     return np.array([
-            A[0,0]*x[0] + A[0,1]*x[1] - b[0],
-            A[1,0]*x[0] + A[1,1]*x[1] - b[1]
+            A[0,0]*x + A[0,1]*y - b[0],
+            A[1,0]*x + A[1,1]*y - b[1]
         ])
 
-def rosenbrock(x):
-    return (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2
+def rosenbrock(xy):
+    x, y = xy
+    return (1 - x)**2 + 100*(y - x**2)**2
 
-def grad_rosenbrock(x):
+def grad_rosenbrock(xy):
+    x, y = xy
     return np.array([
-        -2*(1 - x[0])**2 - 400*x[0] * (x[1] - x[0]**2),
-        200*(x[1] - x[0]**2)
+        -2*(1 - x)**2 - 400*x * (y - x**2),
+        200*(y - x**2)
     ])
 
-def rastrigin(x, A=10):
-    x = np.asarray(x)
-    n = len(x)
-    return A*n + np.sum(x**2 - A * cos(2*np.pi*x))
+def rastrigin(xy, A=10):
+    x, y = xy
+    return (
+        A * 2
+        + (x**2 - A * np.cos(2 * np.pi * x))
+        + (y**2 - A * np.cos(2 * np.pi * y))
+    )
 
-def grad_rastrigin(x, A=10):
-    x = np.asarray(x)
-    return 2*x + 2*np.pi*A*np.sin(2*np.pi*x) 
+def grad_rastrigin(xy, A=10):
+    x, y = xy
+    return (
+        A * 2
+        + (x**2 - A * np.cos(2 * np.pi * x))
+        + (y**2 - A * np.cos(2 * np.pi * y))
+    )
 
 def get_function(name):
     if name == "rosenbrock":

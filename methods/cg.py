@@ -54,11 +54,12 @@ def plot_iterations(f, xs, func_name="function"):
     y_low, y_high = y_min - y_pad, y_max + y_pad
 
     xmesh, ymesh = np.mgrid[x_low:x_high:200j, y_low:y_high:200j]
-    f_mesh = np.zeros_like(xmesh)
-    for i in range(xmesh.shape[0]):
-        for j in range(xmesh.shape[1]):
-            point = np.array([xmesh[i, j], ymesh[i, j]])
-            f_mesh[i, j] = f(point)
+    f_mesh = f(np.array([xmesh, ymesh]))
+    # f_mesh = np.zeros_like(xmesh)
+    # for i in range(xmesh.shape[0]):
+    #     for j in range(xmesh.shape[1]):
+    #         point = np.array([xmesh[i, j], ymesh[i, j]])
+    #         f_mesh[i, j] = f(point)
 
     plt.figure()
     plt.axis("equal")
