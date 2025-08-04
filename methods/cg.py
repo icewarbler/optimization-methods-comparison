@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.optimize as sopt
 import matplotlib.pyplot as plt
+import os
     
 def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
     xs = [x0]
@@ -29,8 +30,7 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
     return xs, gs, ss
 
 def plot_iterations(f, xs, func_name="function"):
-#    xmesh, ymesh = np.mgrid[-10:10:50j,-10:10:50j]
-#    f_mesh = f(np.array([xmesh, ymesh]))
+    os.makedirs("plots", exist_ok=True)
     xs_array = np.array(xs)
     x_min, x_max = xs_array[:, 0].min(), xs_array[:, 0].max()
     y_min, y_max = xs_array[:, 1].min(), xs_array[:, 1].max()
@@ -52,6 +52,4 @@ def plot_iterations(f, xs, func_name="function"):
     plt.axis("equal")
     plt.contour(xmesh, ymesh, f_mesh, levels=50)
     plt.plot(xs_array[:, 0], xs_array[:, 1], "x-", color="red")
-#    xs_array = np.array(xs)
- #   plt.plot(xs_array.T[0], xs_array.T[1], "x-")
     plt.savefig(f"plots/{func_name}_cg_plot.png")
