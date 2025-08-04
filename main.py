@@ -25,7 +25,7 @@ def main():
     if args.method == "sgd":
         result = sgd.run(f, grad_f, x0, lr=args.lr, max_iter=args.max_iter)
     elif args.method == "cg":
-        result = cg.run(f, grad_f, x0, plot=args.plot, max_iter=args.max_iter)
+        result = cg.run(f, grad_f, x0, plot=args.plot, max_iter=args.max_iter, func_name=args.func)
     elif args.method == "lbfgs":
         result = lbfgs.run(f, grad_f, x0, max_iter=args.max_iter)
         
