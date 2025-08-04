@@ -4,13 +4,21 @@ import numpy.linalg as la
 def quadratic(x):
     np.random.seed(1)
     n = 2
-    Q, _ = la.qr(np.random(n, n))
+    Q, _ = la.qr(np.random.randn(n, n))
     A = Q @ (np.diag(np.random.rand(n)) @ Q.T)
     b = np.random.randn(n)
-    return 0.5 * x.T @ A @ x - b.T @ x
+    return 0.5*(A[0,0]*x[0]*x[0] + 2*A[1,0]*x[0]*x[1] +  A[1,1]*x[1]*x[1]) - x[0]*b[0] - x[1]*b[1]
 
 def grad_quadratic(x):
-    return A @ x - b
+    np.random.seed(1)
+    n = 2
+    Q, _ = la.qr(np.random.randn(n, n))
+    A = Q @ (np.diag(np.random.rand(n)) @ Q.T)
+    b = np.random.randn(n)
+    return np.array([
+            A[0,0]*x[0] + A[0,1]*x[1] - b[0],
+            A[1,0]*x[0] + A[1,1]*x[1] - b[1]
+        ])
 
 def rosenbrock(x):
     return (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2
