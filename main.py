@@ -4,7 +4,8 @@ from methods import sgd, cg, lbfgs
 from functions import get_function
 
 # python3 main.py --method sgd --func rosenbrock --lr 0.001 --max-iter 1000
-# python3 main.py --method cg --func quadratic --max-iter 1000
+# python3 main.py --method cg --func quadratic --max-iter 1000 --plot True
+# python3 main.py --method cg --func rosenbrock --max-iter 1000 --init 0.5 0.5 --plot True
 
 def main():
     parser = argparse.ArgumentParser(
@@ -16,6 +17,7 @@ def main():
     parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--init", type=float, nargs="+", default=[-1.2, 1.0])
     parser.add_argument("--plot", type=bool, default=False)
+    parser.add_argument("--tol", type=float, default=1e6)
 
     args = parser.parse_args()
 
@@ -30,7 +32,7 @@ def main():
         result = lbfgs.run(f, grad_f, x0, max_iter=args.max_iter)
         
 
-    print(f"Result: {result}")
+ #   print(f"Result: {result}")
 
 if __name__ == "__main__":
     main()

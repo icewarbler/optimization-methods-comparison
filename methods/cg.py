@@ -2,6 +2,7 @@ import numpy as np
 import scipy.optimize as sopt
 import matplotlib.pyplot as plt
 import os
+import warnings
     
 def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
     xs = [x0]
@@ -10,18 +11,29 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
     
     for i in range(max_iter):
         f_ls = lambda alpha: f(xs[i] + alpha * ss[i])
-        best_alpha = sopt.golden(f_ls)
+        best_alpha = sopt.line_search(f, gradf, xs[i], ss[i])[0]
+        if best_alpha is None:
+            best_alpha = 1e-4
 
         next_x = xs[i] + best_alpha * ss[i]
         xs.append(next_x)
 
         next_g = gradf(xs[-1])
         gs.append(next_g)
+        print(f"iter {i}: ||grad|| = {np.linalg.norm(next_g):.2e}, f(x) = {f(xs[-1]):.6f}")
+
         if np.linalg.norm(next_g) < tol:
             break
 
-        beta = np.dot(next_g, next_g) / np.dot(gs[i], gs[i])
-        next_s = -gs[-1] + beta * ss[i]
+        # use Polak-Ribiere instead of Fletcher-Reeves
+        y = next_g - gs[i]
+        beta = max(0, np.dot(next_g, y) / np.dot(gs[i], gs[i]))
+
+        if i % len(x0) == 0 or np.dot(next_g, ss[i]) > 0:
+            next_s = -next_g
+        else:
+            next_s = -next_g + beta * ss[i]
+
         ss.append(next_s)
 
     if plot:
@@ -35,8 +47,8 @@ def plot_iterations(f, xs, func_name="function"):
     x_min, x_max = xs_array[:, 0].min(), xs_array[:, 0].max()
     y_min, y_max = xs_array[:, 1].min(), xs_array[:, 1].max()
 
-    x_pad = 0.1 * (x_max - x_min)
-    y_pad = 0.1 * (y_max - y_min)
+    x_pad = 0.1*(x_max - x_min)
+    y_pad = 0.1*(y_max - y_min)
 
     x_low, x_high = x_min - x_pad, x_max + x_pad
     y_low, y_high = y_min - y_pad, y_max + y_pad
@@ -52,4 +64,5 @@ def plot_iterations(f, xs, func_name="function"):
     plt.axis("equal")
     plt.contour(xmesh, ymesh, f_mesh, levels=50)
     plt.plot(xs_array[:, 0], xs_array[:, 1], "x-", color="red")
+    plt.plot(xs_array[-1, 0], xs_array[-1, 1], "o", color="blue", markersize=10, label="final point")
     plt.savefig(f"plots/{func_name}_cg_plot.png")
