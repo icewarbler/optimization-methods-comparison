@@ -4,14 +4,14 @@ from methods import sgd, cg, lbfgs
 from functions import get_function
 
 # python3 main.py --method sgd --func rosenbrock --lr 0.001 --max-iter 1000
-
+# python3 main.py --method cg --func quadratic --max-iter 1000
 
 def main():
     parser = argparse.ArgumentParser(
         prog = "Optimization",
         description = "Runs provided optimization method")
     parser.add_argument("--method", type=str, choices=["sgd", "cg", "lbfgs"], required=True)
-    parser.add_argument("--func", type=str, choices=["rosenbrock", "rastrigin"], required=True)
+    parser.add_argument("--func", type=str, choices=["rosenbrock", "rastrigin", "quadratic"], required=True)
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--init", type=float, nargs="+", default=[-1.2, 1.0])

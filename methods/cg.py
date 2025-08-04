@@ -1,17 +1,24 @@
 import numpy as np
-
-def golden_section_search(fun, a, b):
-    while abs(a-b) > tol:
-        tau = (np.sqrt(5) - 1) / 2
-        m1 = a + (1-tau)*(b-a)
-        m2 = a + tau*(b-a)
-
-        if fun(m1) > fun(m2):
-            a = m1
-        else:
-            b = m2
-
-    return a
+import scipy.optimize as sopt
     
-def run(f, grad_f, x0, max_iter=1000):
-    return 0
+def run(f, gradf, x0, max_iter=100, tol=1e-6):
+    xs = [x0]
+    gs = [gradf(x0)]
+    ss = [-gs[0]]
+    
+    for i in range(max_iter):
+        f_ls = lambda alpha: f(xs[i] + alpha * ss[i])
+        best_alpha = sopt.golden(f_ls)
+
+        next_x = xs[i] + best_alpha * ss[i]
+        xs.append(next_x)
+
+        next_g = gradf(xs[-1])
+        gs.append(next_g)
+        if np.linalg.norm(next_g) < tol:
+            break
+
+        beta = np.dot(next_g, next_g) / np.dot(gs[i], gs[i])
+        next_s = -gs[-1] + beta * ss[i]
+        ss.append(next_s)
+    return xs, gs, ss

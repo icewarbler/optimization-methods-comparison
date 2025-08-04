@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.linalg as la
+import scipy.optimize as sopt
 
 def quadratic(x):
     np.random.seed(1)
@@ -43,5 +44,7 @@ def get_function(name):
         return rosenbrock, grad_rosenbrock
     elif name == "rastrigin":
         return rastrigin, grad_rastrigin
+    elif name == "quadratic":
+        return quadratic, grad_quadratic
     else:
         raise ValueError(f"Unknown function: {name}")
