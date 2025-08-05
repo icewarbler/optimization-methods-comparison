@@ -44,11 +44,9 @@ def rastrigin(xy, A=10):
 
 def grad_rastrigin(xy, A=10):
     x, y = xy
-    return (
-        A * 2
-        + (x**2 - A * np.cos(2 * np.pi * x))
-        + (y**2 - A * np.cos(2 * np.pi * y))
-    )
+    dx = 2 * x + 2 * np.pi * A * np.sin(2 * np.pi * x)
+    dy = 2 * y + 2 * np.pi * A * np.sin(2 * np.pi * y)
+    return np.array([dx, dy])
 
 def get_function(name):
     if name == "rosenbrock":

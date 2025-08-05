@@ -24,9 +24,9 @@ def main():
     if args.method == "sgd":
         result = sgd.run(f, grad_f, x0, lr=args.lr, max_iter=args.max_iter)
     elif args.method == "cg":
-        result = cg.run(f, grad_f, x0, plot=args.plot, max_iter=args.max_iter, func_name=args.func, steepness=args.steepness)
+        result = cg.run(f, grad_f, x0, tol=args.tol, plot=args.plot, max_iter=args.max_iter, func_name=args.func, steepness=args.steepness)
     elif args.method == "bfgs":
-        result = bfgs.run(f, grad_f, x0, max_iter=args.max_iter, func_name=args.func, plot=args.plot, steepness=args.steepness)
+        result = bfgs.run(f, grad_f, x0, tol=args.tol, max_iter=args.max_iter, func_name=args.func, plot=args.plot, steepness=args.steepness)
         
 
  #   print(f"Result: {result}")

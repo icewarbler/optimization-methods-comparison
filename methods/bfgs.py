@@ -19,6 +19,8 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
         
         if la.norm(grad) < tol:
             break
+        print("grad shape:", gradf(xs[-1]).shape)
+        print("bs shape:", bs[-1].shape)
 
         p_k = -la.solve(bs[-1], grad)
         ps.append(p_k)

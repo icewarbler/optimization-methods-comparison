@@ -46,3 +46,9 @@ or `python3 main.py -h` to get instructions
 **steepness**&ensp;:&ensp;*bool, optional*
 
 &emsp;Whether or not the method's steepness will be plotted. Defaults to `False`
+
+## Usage Notes
+
+- Rastrigin is not optimal for the conjugate gradient method, as there are repeated minima
+
+- Rosenbrock is ill-conditioned, so expect a very slow convergence when using conjugate gradient. Expect to require a very high tolerance (tol≈9e-02), and, even then, expect to see oscillatory convergence
