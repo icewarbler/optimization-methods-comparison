@@ -1,18 +1,19 @@
 import argparse
 import numpy as np
-from methods import sgd, cg, lbfgs
+from methods import sgd, cg, bfgs
 from functions import get_function
 
 # python3 main.py --method sgd --func rosenbrock --lr 0.001 --max-iter 1000
 # python3 main.py --method cg --func quadratic --max-iter 1000 --plot True
 # python3 main.py --method cg --func rosenbrock --max-iter 1000 --init 0.5 0.5 --plot True
 # python3 main.py --method cg --func rastrigin --max-iter 1000 --plot True
+# python3 main.py --method bfgs --func quadratic --max-iter 1000 --plot True
 
 def main():
     parser = argparse.ArgumentParser(
         prog = "Optimization",
         description = "Runs specified optimization method")
-    parser.add_argument("--method", type=str, choices=["sgd", "cg", "lbfgs"], required=True)
+    parser.add_argument("--method", type=str, choices=["sgd", "cg", "bfgs"], required=True)
     parser.add_argument("--func", type=str, choices=["rosenbrock", "rastrigin", "quadratic"], required=True)
     parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--max-iter", type=int, default=1000)
@@ -29,8 +30,8 @@ def main():
         result = sgd.run(f, grad_f, x0, lr=args.lr, max_iter=args.max_iter)
     elif args.method == "cg":
         result = cg.run(f, grad_f, x0, plot=args.plot, max_iter=args.max_iter, func_name=args.func)
-    elif args.method == "lbfgs":
-        result = lbfgs.run(f, grad_f, x0, max_iter=args.max_iter)
+    elif args.method == "bfgs":
+        result = bfgs.run(f, grad_f, x0, max_iter=args.max_iter, func_name=args.func, plot=args.plot)
         
 
  #   print(f"Result: {result}")
