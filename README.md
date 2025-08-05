@@ -1,10 +1,9 @@
 # optimization-methods-comparison
-This repo compares gradient descent (GD), conjugate gradient (CG), and BFGS methods on optimizing several different functions.  
+This repo compares Nelder-Mead (NM), conjugate gradient (CG), and BFGS methods on optimizing several different functions.  
 
 ## Usage
 Run with `python --method {sgd,cg,bfgs} 
             --func {rosenbrock,rastrigin,quadratic}
-            --lr {FLOAT}
             --max-iter {FLOAT}
             --init {FLOAT} {FLOAT}
             --tol {FLOAT}
@@ -22,10 +21,6 @@ or `python3 main.py -h` to get instructions
 **function**&ensp;:&ensp;*{'rosenbrock', 'rastrigin', 'quadratic'}*
 
 &emsp;The function to optimize
-
-**lr**&ensp;:&ensp;*float, optional*
-
-&emsp;The learning rate. Only necessary if using sgd
 
 **max_iter**&ensp;:&ensp;*float, optional*
 
