@@ -43,6 +43,6 @@ or `python3 main.py -h` to get instructions
 
 &emsp;Whether or not the function will be plotted. Defaults to `False`
 
-**plot**&ensp;:&ensp;*bool, optional*
+**steepness**&ensp;:&ensp;*bool, optional*
 
 &emsp;Whether or not the method's steepness will be plotted. Defaults to `False`
