@@ -5,14 +5,15 @@ import matplotlib.pyplot as plt
 import os
 import warnings
 
-def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
+def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", steepness=False):
     xs = [x0]
     bs = [np.eye(len(x0))]
     ps = []
+    gs = []
     
     for i in range(max_iter):
         grad = gradf(xs[-1])
-
+        gs.append(grad)
 
         print(f"iter {i}: ||grad|| = {la.norm(grad):.2e}, f(x) = {f(xs[-1]):.6f}")
         
@@ -39,8 +40,13 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function"):
         xs.append(x_next)
         bs.append(b_next)
     
+    print(f"Converges to {xs[-1]} in {len(xs)} iterations")
+
     if plot:
         plot_iterations(f, xs, func_name)
+    
+    if steepness:
+        plot_steepness_iterations(gs, func_name)
     
     return xs, bs, ps
 
@@ -58,11 +64,6 @@ def plot_iterations(f, xs, func_name="function"):
 
     xmesh, ymesh = np.mgrid[x_low:x_high:200j, y_low:y_high:200j]
     f_mesh = f(np.array([xmesh, ymesh]))
-    # f_mesh = np.zeros_like(xmesh)
-    # for i in range(xmesh.shape[0]):
-    #     for j in range(xmesh.shape[1]):
-    #         point = np.array([xmesh[i, j], ymesh[i, j]])
-    #         f_mesh[i, j] = f(point)
 
     plt.figure()
     plt.axis("equal")
@@ -70,3 +71,18 @@ def plot_iterations(f, xs, func_name="function"):
     plt.plot(xs_array[:, 0], xs_array[:, 1], "x-", color="red")
     plt.plot(xs_array[-1, 0], xs_array[-1, 1], "o", color="blue", markersize=10, label="final point")
     plt.savefig(f"plots/{func_name}_bfgs_plot.png")
+
+def plot_steepness_iterations(gs, func_name="function"):
+    os.makedirs("plots", exist_ok=True)
+
+    grad_norms = [la.norm(g) for g in gs]
+    iterations = list(range(len(gs)))
+
+    plt.figure() 
+    plt.plot(iterations, grad_norms)
+    plt.xlabel("iteration")
+    plt.ylabel("||grad||")
+    plt.yscale("log")
+    plt.title("Steepness")
+    plt.grid(True)
+    plt.savefig(f"plots/{func_name}_bfgs_steepness.png")
