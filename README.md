@@ -1,5 +1,5 @@
 # optimization-methods-comparison
-This repo compares stochastic gradient decent (SGD), gradient descent (GD), and L-BFGS methods on optimizing several different functions. 
+This repo compares gradient descent (GD), conjugate gradient (CG), and BFGS methods on optimizing several different functions.  
 
 ## Usage
 Run with `python --method {sgd,cg,bfgs} 
@@ -8,7 +8,8 @@ Run with `python --method {sgd,cg,bfgs}
             --max-iter {FLOAT}
             --init {FLOAT} {FLOAT}
             --tol {FLOAT}
-            --plot {BOOLEAN}`
+            --plot {BOOLEAN}
+            --steepness {BOOLEAN}`
             
 or `python3 main.py -h` to get instructions
 
@@ -41,3 +42,7 @@ or `python3 main.py -h` to get instructions
 **plot**&ensp;:&ensp;*bool, optional*
 
 &emsp;Whether or not the function will be plotted. Defaults to `False`
+
+**plot**&ensp;:&ensp;*bool, optional*
+
+&emsp;Whether or not the method's steepness will be plotted. Defaults to `False`
