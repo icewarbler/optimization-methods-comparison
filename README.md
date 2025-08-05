@@ -2,7 +2,7 @@
 This repo compares stochastic gradient decent (SGD), gradient descent (GD), and L-BFGS methods on optimizing several different functions. 
 
 ## Usage
-Run with `python --method {sgd,cg,lbfgs} 
+Run with `python --method {sgd,cg,bfgs} 
             --func {rosenbrock,rastrigin,quadratic}
             --lr {FLOAT}
             --max-iter {FLOAT}
@@ -14,7 +14,7 @@ or `python3 main.py -h` to get instructions
 
 > Parameters
 
-**method**&ensp;:&ensp;*{'sgd', 'cg', 'lbfgs'}*
+**method**&ensp;:&ensp;*{'sgd', 'cg', 'bfgs'}*
 
 &emsp;The optimization method to use
 
