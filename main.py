@@ -7,9 +7,8 @@ def main():
     parser = argparse.ArgumentParser(
         prog = "Optimization",
         description = "Runs specified optimization method")
-    parser.add_argument("--method", type=str, choices=["sgd", "cg", "bfgs"], required=True)
+    parser.add_argument("--method", type=str, choices=["nm", "cg", "bfgs"], required=True)
     parser.add_argument("--func", type=str, choices=["rosenbrock", "rastrigin", "quadratic"], required=True)
-    parser.add_argument("--lr", type=float, default=0.01)
     parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--init", type=float, nargs="+", default=[-1.2, 1.0])
     parser.add_argument("--tol", type=float, default=1e6)
@@ -21,8 +20,8 @@ def main():
     f, grad_f = get_function(args.func)
     x0 = np.array(args.init)
 
-    if args.method == "sgd":
-        result = sgd.run(f, grad_f, x0, lr=args.lr, max_iter=args.max_iter)
+    if args.method == "nm":
+        result = nm.run(f, grad_f, x0, max_iter=args.max_iter)
     elif args.method == "cg":
         result = cg.run(f, grad_f, x0, tol=args.tol, plot=args.plot, max_iter=args.max_iter, func_name=args.func, steepness=args.steepness)
     elif args.method == "bfgs":
