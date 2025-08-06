@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--func", type=str, choices=["rosenbrock", "rastrigin", "quadratic"], required=True)
     parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--init", type=float, nargs="+", default=[-1.2, 1.0])
-    parser.add_argument("--tol", type=float, default=1e6)
+    parser.add_argument("--tol", type=float, default=1e-6)
     parser.add_argument("--plot", type=bool, default=False)
     parser.add_argument("--steepness", type=bool, default=False)
 
