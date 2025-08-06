@@ -1,6 +1,6 @@
 import argparse
 import numpy as np
-from methods import sgd, cg, bfgs
+from methods import nm, cg, bfgs
 from functions import get_function
 
 def main():
@@ -21,7 +21,7 @@ def main():
     x0 = np.array(args.init)
 
     if args.method == "nm":
-        result = nm.run(f, grad_f, x0, max_iter=args.max_iter)
+        result = nm.run(f, x0, max_iter=args.max_iter, tol=args.tol)
     elif args.method == "cg":
         result = cg.run(f, grad_f, x0, tol=args.tol, plot=args.plot, max_iter=args.max_iter, func_name=args.func, steepness=args.steepness)
     elif args.method == "bfgs":
