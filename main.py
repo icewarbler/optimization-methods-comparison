@@ -21,7 +21,7 @@ def main():
     x0 = np.array(args.init)
 
     if args.method == "nm":
-        result = nm.run(f, x0, max_iter=args.max_iter, tol=args.tol)
+        result = nm.run(f, x0, max_iter=args.max_iter, tol=args.tol, plot=args.plot, func_name=args.func, steepness=args.steepness)
     elif args.method == "cg":
         result = cg.run(f, grad_f, x0, tol=args.tol, plot=args.plot, max_iter=args.max_iter, func_name=args.func, steepness=args.steepness)
     elif args.method == "bfgs":
