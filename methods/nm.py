@@ -5,6 +5,7 @@ import os
 import warnings
     
 def run(f, x0, max_iter=10, tol=1e-4, plot=False, func_name="function", steepness=False):
+    
     n = len(x0)
     x0 = np.array(x0)
     xs = [x0]
@@ -22,35 +23,33 @@ def run(f, x0, max_iter=10, tol=1e-4, plot=False, func_name="function", steepnes
 
     for i in range(max_iter):
         res, conv = nm(f, res, tol)
-       # xs.append([points for points, _ in res])
         best = min(res, key=lambda x: x[1])
         xs.append(best[0])
         devs.append(np.std([fval for _, fval in res]))
         if conv:
             break
     
-    print(f"xs: {xs}")
+ #   print(f"xs: {xs}")
     best = min(res, key=lambda x: x[1])
-    print(f"best point: {best[0]}, value: {best[1]}")
+  #  print(f"best point: {best[0]}, value: {best[1]}")
 
     if plot:
         plot_iterations(f, xs, func_name)
 
     if steepness:
-       # devs = np.std([fval for _, fval in res])
-        print(f"devs: {devs}")
+    #    print(f"devs: {devs}")
         plot_steepness_iterations(devs, func_name)
 
     return best[1]
 
 def nm(f, res, tol=1e-4):
-    
+
     # order
     res.sort(key=lambda x: x[1])
     xs = [r[0] for r in res]
     fs = [r[1] for r in res]
 
-    print(f"Points: {xs}, value: {fs}\n")
+ #   print(f"Points: {xs}, value: {fs}\n")
 
     # check convergence
     if np.std(fs) < tol:

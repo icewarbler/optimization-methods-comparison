@@ -2,8 +2,11 @@ import argparse
 import numpy as np
 from methods import nm, cg, bfgs
 from functions import get_function
+import logging
+logger = logging.getLogger(__name__)
 
 def main():
+
     parser = argparse.ArgumentParser(
         prog = "Optimization",
         description = "Runs specified optimization method")
@@ -28,7 +31,7 @@ def main():
         result = bfgs.run(f, grad_f, x0, tol=args.tol, max_iter=args.max_iter, func_name=args.func, plot=args.plot, steepness=args.steepness)
         
 
- #   print(f"Result: {result}")
+    print(f"Result: {result}")
 
 if __name__ == "__main__":
     main()

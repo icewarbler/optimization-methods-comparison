@@ -44,7 +44,7 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
     if steepness:
         plot_steepness_iterations(gs, func_name)
 
-    return xs, gs, ss
+    return f(xs[-1])
 
 def plot_iterations(f, xs, func_name="function"):
     os.makedirs("plots", exist_ok=True)

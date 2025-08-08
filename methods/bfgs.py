@@ -19,8 +19,6 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
         
         if la.norm(grad) < tol:
             break
-        print("grad shape:", gradf(xs[-1]).shape)
-        print("bs shape:", bs[-1].shape)
 
         p_k = -la.solve(bs[-1], grad)
         ps.append(p_k)
@@ -50,7 +48,7 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
     if steepness:
         plot_steepness_iterations(gs, func_name)
     
-    return xs, bs, ps
+    return f(xs[-1])
 
 def plot_iterations(f, xs, func_name="function"):
     os.makedirs("plots", exist_ok=True)
