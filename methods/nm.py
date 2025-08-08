@@ -29,18 +29,15 @@ def run(f, x0, max_iter=10, tol=1e-4, plot=False, func_name="function", steepnes
         if conv:
             break
     
- #   print(f"xs: {xs}")
     best = min(res, key=lambda x: x[1])
-  #  print(f"best point: {best[0]}, value: {best[1]}")
 
     if plot:
         plot_iterations(f, xs, func_name)
 
     if steepness:
-    #    print(f"devs: {devs}")
         plot_steepness_iterations(devs, func_name)
 
-    return best[1]
+    return best[0], best[1], len(xs)
 
 def nm(f, res, tol=1e-4):
 
@@ -49,7 +46,6 @@ def nm(f, res, tol=1e-4):
     xs = [r[0] for r in res]
     fs = [r[1] for r in res]
 
- #   print(f"Points: {xs}, value: {fs}\n")
 
     # check convergence
     if np.std(fs) < tol:

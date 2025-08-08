@@ -20,7 +20,6 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
 
         next_g = gradf(xs[-1])
         gs.append(next_g)
-        print(f"iter {i}: ||grad|| = {la.norm(next_g):.2e}, f(x) = {f(xs[-1]):.6f}")
 
         if np.linalg.norm(next_g) < tol:
             break
@@ -36,15 +35,13 @@ def run(f, gradf, x0, max_iter=100, tol=1e-6, plot=False, func_name="function", 
 
         ss.append(next_s)
 
-    print(f"Converges to {xs[-1]} in {len(xs)} iterations")
-
     if plot:
         plot_iterations(f, xs, func_name)
     
     if steepness:
         plot_steepness_iterations(gs, func_name)
 
-    return f(xs[-1])
+    return xs[-1], f(xs[-1]), len(xs)
 
 def plot_iterations(f, xs, func_name="function"):
     os.makedirs("plots", exist_ok=True)
