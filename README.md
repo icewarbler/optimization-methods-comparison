@@ -2,7 +2,7 @@
 This repo compares Nelder-Mead (NM), conjugate gradient (CG), and BFGS methods on optimizing several different functions.  
 
 ## Usage
-Run with `python --method {sgd,cg,bfgs} 
+Run with `python --method {nm,cg,bfgs} 
             --func {rosenbrock,rastrigin,quadratic}
             --max-iter {FLOAT}
             --init {FLOAT} {FLOAT}
@@ -14,7 +14,7 @@ or `python3 main.py -h` to get instructions
 
 > Parameters
 
-**method**&ensp;:&ensp;*{'sgd', 'cg', 'bfgs'}*
+**method**&ensp;:&ensp;*{'nm', 'cg', 'bfgs'}*
 
 &emsp;The optimization method to use
 
