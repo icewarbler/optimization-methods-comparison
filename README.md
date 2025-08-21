@@ -1,49 +1,55 @@
 # optimization-methods-comparison
-This repo compares Nelder-Mead (NM), conjugate gradient (CG), and BFGS methods on optimizing several different functions.  
+
+This repository compares three optimization methods — **Nelder-Mead (NM)**, **Conjugate Gradient (CG)**, and **BFGS** — on several benchmark functions.
+
+## Overview
+
+The project allows you to test and visualize different optimization methods on common mathematical functions:
+
+- **Algorithms**:  
+  - Nelder-Mead (NM)  
+  - Conjugate Gradient (CG)  
+  - BFGS  
+
+- **Benchmark functions**:  
+  - Rosenbrock  
+  - Rastrigin  
+  - Quadratic 
 
 ## Usage
-Run with `python --method {nm,cg,bfgs} 
-            --func {rosenbrock,rastrigin,quadratic}
-            --max-iter {FLOAT}
-            --init {FLOAT} {FLOAT}
-            --tol {FLOAT}
-            --plot {BOOLEAN}
-            --steepness {BOOLEAN}`
-            
-or `python3 main.py -h` to get instructions
 
-> Parameters
 
-**method**&ensp;:&ensp;*{'nm', 'cg', 'bfgs'}*
+Run the script with:
 
-&emsp;The optimization method to use
+```bash
+python main.py --method {nm,cg,bfgs} \
+               --func {rosenbrock,rastrigin,quadratic} \
+               --max-iter {INT} \
+               --init {FLOAT} {FLOAT} \
+               --tol {FLOAT} \
+               --plot {BOOLEAN} \
+               --steepness {BOOLEAN}
+```
 
-**function**&ensp;:&ensp;*{'rosenbrock', 'rastrigin', 'quadratic'}*
+or check the help message:
 
-&emsp;The function to optimize
+ `python3 main.py -h`
 
-**max_iter**&ensp;:&ensp;*float, optional*
+ ### Parameters
 
-&emsp;The maximum number of iterations for the method
+| Parameter      | Type                  | Description |
+|----------------|---------------------|-------------|
+| `--method`     | str                   | Optimization method to use. Choices: `nm`, `cg`, `bfgs` |
+| `--func`       | str                   | Function to optimize. Choices: `rosenbrock`, `rastrigin`, `quadratic` |
+| `--max-iter`   | int, optional         | Maximum number of iterations (default depends on method) |
+| `--init`       | float float, optional | Initial values for the optimizer, e.g., `2 2` |
+| `--tol`        | float, optional       | Stopping tolerance for the method |
+| `--plot`       | bool, optional        | Whether to plot the function (default: `False`) |
+| `--steepness`  | bool, optional        | Whether to plot the method's steepness (default: `False`) |
 
-**init**&ensp;:&ensp;*float, optional*
-
-&emsp;The inital values. It should be structured without paranthesis/brackets; i.e. `2 2`
-
-**tol**&ensp;:&ensp;*float, optional*
-
-&emsp;The tolerance at which the iterations will stop
-
-**plot**&ensp;:&ensp;*bool, optional*
-
-&emsp;Whether or not the function will be plotted. Defaults to `False`
-
-**steepness**&ensp;:&ensp;*bool, optional*
-
-&emsp;Whether or not the method's steepness will be plotted. Defaults to `False`
 
 ## Usage Notes
 
-- Rastrigin is not optimal for the conjugate gradient method, as there are repeated minima
+- **Rastrigin** is not optimal for the conjugate gradient method, as there are repeated minima
 
-- Rosenbrock is ill-conditioned, so expect a very slow convergence when using conjugate gradient. Expect to require a very high tolerance (tol≈9e-02), and, even then, expect to see oscillatory convergence
+- **Rosenbrock** is ill-conditioned, so expect a very slow convergence when using conjugate gradient. Expect to require a very high tolerance (`tol≈9e-02`), and, even then, expect to see oscillatory convergence
